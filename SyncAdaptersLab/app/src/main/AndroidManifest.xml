@@ -20,32 +20,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.charlesdrews.syncadapterslab.PlaceholderAuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <provider
+            android:name="com.charlesdrews.syncadapterslab.StubProvider"
+            android:authorities="com.charlesdrews.syncadapterslab.StubProvider"
+            android:label="my provider"
+            android:exported="false"
+            android:syncable="true"/>
+
+        <service
+            android:name="com.charlesdrews.syncadapterslab.MySyncService">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
     </application>
-
-    <service
-        android:name="com.charlesdrews.syncadapterslab.PlaceholderAuthenticatorService">
-        <intent-filter>
-            <action android:name="android.accounts.AccountAuthenticator"/>
-        </intent-filter>
-        <meta-data
-            android:name="android.accounts.AccountAuthenticator"
-            android:resource="@xml/authenticator" />
-    </service>
-
-    <provider
-        android:name="com.charlesdrews.syncadapterslab.StubProvider"
-        android:authorities="com.charlesdrews.syncadapterslab.StubProvider"
-        android:label="my provider"
-        android:exported="false"
-        android:syncable="true"/>
-
-    <service
-        android:name="com.charlesdrews.syncadapterslab.MySyncService">
-        <intent-filter>
-            <action android:name="android.content.SyncAdapter"/>
-        </intent-filter>
-        <meta-data
-            android:name="android.content.SyncAdapter"
-            android:resource="@xml/syncadapter" />
-    </service>
 </manifest>
