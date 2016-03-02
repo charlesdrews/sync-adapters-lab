@@ -38,11 +38,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority,ContentProviderClient provider, SyncResult syncResult) {
-        final String FACEBOOK = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=fb";
-        final String DISNEY = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=dis";
-        final String MARATHON_OIL = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mro";
-        final String MONSANTO = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mon";
-        final String BOFA = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=bac";
+        final String FACEBOOK = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=fb";
+        final String DISNEY = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=dis";
+        final String MARATHON_OIL = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=mro";
+        final String MONSANTO = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=mon";
+        final String BOFA = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=bac";
 
         String[] urlStrings = new String[]{FACEBOOK, DISNEY, MARATHON_OIL, MONSANTO, BOFA};
 
@@ -60,13 +60,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             Gson gson = new Gson();
             StockQuote result = gson.fromJson(data, StockQuote.class);
-        }
-
-
-        int numArticles = result.getResults().size();
-        int max = numArticles > 5 ? 5 : numArticles;
-        for (int i = 0; i < max; i++) {
-            Log.d(TAG, "Latest story: " + result.getResults().get(i).getTitle());
+            Log.d(TAG, result.getName() + ": " + result.getLastPrice());
         }
     }
 
