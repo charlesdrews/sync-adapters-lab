@@ -38,28 +38,36 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority,ContentProviderClient provider, SyncResult syncResult) {
-        String data ="";
-        try {
-            //TODO - use the stock price api
-            URL url = new URL("http://api.nytimes.com/svc/news/v3/content/all/all/all.json?limit=20&api-key=a8764563ef5394eb7142e890d45f914b:0:50241826");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-            InputStream inStream = connection.getInputStream();
-            data = getInputData(inStream);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        final String FACEBOOK = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=fb";
+        final String DISNEY = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=dis";
+        final String MARATHON_OIL = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mro";
+        final String MONSANTO = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mon";
+        final String BOFA = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=bac";
+
+        String[] urlStrings = new String[]{FACEBOOK, DISNEY, MARATHON_OIL, MONSANTO, BOFA};
+
+        for (String urlString : urlStrings) {
+            String data = "";
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inStream = connection.getInputStream();
+                data = getInputData(inStream);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+            Gson gson = new Gson();
+            StockQuote result = gson.fromJson(data, StockQuote.class);
         }
 
-        /*
-        Gson gson = new Gson();
-        SearchResult result = gson.fromJson(data,SearchResult.class);
 
         int numArticles = result.getResults().size();
         int max = numArticles > 5 ? 5 : numArticles;
         for (int i = 0; i < max; i++) {
             Log.d(TAG, "Latest story: " + result.getResults().get(i).getTitle());
         }
-        */
     }
 
     private String getInputData(InputStream inputStream) throws IOException {

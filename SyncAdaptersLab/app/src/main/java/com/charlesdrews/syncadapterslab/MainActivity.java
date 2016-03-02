@@ -6,11 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private String FACEBOOK = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=fb";
-    private String DISNEY = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=dis";
-    private String MARATHON_OIL = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mro";
-    private String MONSANTO = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=mon";
-    private String BOFA = "http://dev.markitondemand.com/MODApis/Api/v2/Quote?symbol=bac";
+
 
     Button mSyncNowButton;
     Button mOneMinuteButton;
